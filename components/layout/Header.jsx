@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from "next/link";
+import Image from "next/image";
+import Logo from "@/app/assets/logo.png"
 
 const Header = () => {
     const navList = [
@@ -29,11 +31,11 @@ const Header = () => {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         {navList.map((item)=>(
-                            <li><Link href={item.url}>{item.name}</Link></li>
+                            <li key={item.name}><Link href={item.url}>{item.name}</Link></li>
                         ))}
                     </ul>
                 </div>
-                <Link href="/" className="btn btn-ghost text-xl">LOGO</Link>
+                <Link href="/" className="btn btn-link text-xl"><Image src={Logo} width={30} height={30}/></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
