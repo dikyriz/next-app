@@ -36,3 +36,38 @@ export async function categoryCreate(state, formData) {
 
     redirect("/dashboard/category");
 }
+
+export async function categoryUpdate(state, formData) {
+    await connectDB();
+
+    // Validate form fields
+    const validatedFields = CategoryFormSchema.safeParse({
+        name: formData.get('name'),
+        description: formData.get('description'),
+    })
+
+    // If any form fields are invalid, return early
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+        }
+    }
+
+    // Call the provider or db to create a user...
+    const {name, description} = validatedFields.data
+
+    const categoryEdit = await Categories.findByIdAndUpdate(state, {
+        name,
+        description
+    })
+
+    if(!categoryEdit){
+        return {
+            errors: "Delete failed"
+        }
+    }
+
+
+
+    redirect("/dashboard/category");
+}
