@@ -71,3 +71,10 @@ export async function categoryUpdate(state, formData) {
 
     redirect("/dashboard/category");
 }
+
+export async function categoryDelete(id){
+    await connectDB();
+    await Categories.findByIdAndDelete(id);
+
+    redirect("/dashboard/category");
+}
