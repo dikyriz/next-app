@@ -8,6 +8,10 @@ const JobSchema = new Schema({
       enum: Object.values(JOB_TYPE),
       default: JOB_TYPE.FULLTIME,
     },
+    isPublish: {
+      type: Boolean,
+      default: true,
+    },
     title: {
         type: String,
         required: true,
