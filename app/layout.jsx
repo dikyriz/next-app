@@ -1,5 +1,6 @@
 import "./globals.css";
 import {ToastContainer} from "react-toastify";
+import {ClerkProvider} from "@clerk/nextjs";
 
 export const metadata = {
   title: "Jobs App",
@@ -8,12 +9,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="corporate">
-      <body>
-          {children}
-      <ToastContainer/>
-      </body>
-    </html>
+      <ClerkProvider>
+        <html lang="en" data-theme="corporate">
+          <body>
+              {children}
+          <ToastContainer/>
+          </body>
+        </html>
+      </ClerkProvider>
   );
 }
 

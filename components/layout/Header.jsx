@@ -2,6 +2,7 @@ import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/app/assets/logo.png"
+import {SignedIn, SignedOut, SignInButton} from "@clerk/nextjs";
 
 const Header = () => {
     const navList = [
@@ -45,7 +46,15 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                <SignedOut>
+                    <SignInButton mode="modal">
+                        <button className="btn btn-primary text-white">Login</button>
+                    </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                    <Link href="/dashboard" className="btn btn-primary text-white">Dashboard</Link>
+                </SignedIn>
+
             </div>
         </div>
     );
