@@ -15,7 +15,7 @@ const JobPage = async () => {
             <>
                 <h1>Job not found, create now!</h1>
                 <div className="flex my-2">
-                    <Link href="/dashboard/jobs/create" className="btn btn-primary rounded-lg">Create Job</Link>
+                    <Link href="/dashboard/jobs/create" className="btn btn-primary rounded-lg text-white">Create Job</Link>
                 </div>
             </>
         )
@@ -25,7 +25,7 @@ const JobPage = async () => {
         <>
             <h1 className="text-primary font-bold text-3xl">List Job</h1>
             <div className="flex my-2">
-            <Link href="/dashboard/jobs/create" className="btn btn-primary rounded-lg">Create Job</Link>
+            <Link href="/dashboard/jobs/create" className="btn btn-primary rounded-lg text-white">Create Job</Link>
             </div>
             <div className="grid md:grid-cols-3 grid-cols-1 gap-3 my-2">
                 {jobs.map((item) => (
