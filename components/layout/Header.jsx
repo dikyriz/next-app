@@ -8,7 +8,7 @@ const Header = () => {
     const navList = [
         {name: "About", url: "/about"},
         {name: "Category", url: "/category"},
-        {name: "Create Category", url: "/category/create"}
+        {name: "Jobs", url: "/job"}
     ]
     return (
         <div className="navbar bg-base-100 fixed top-0">
