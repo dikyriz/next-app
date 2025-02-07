@@ -12,6 +12,10 @@ const DashboardList = [
         url: "/dashboard/jobs"
     },
     {
+        label: "Profile",
+        url: "/dashboard/profile"
+    },
+    {
         label: "Stats",
         url: "/dashboard/stats"
     }

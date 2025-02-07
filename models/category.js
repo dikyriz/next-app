@@ -11,6 +11,15 @@ const CategorySchema = new Schema({
         type: String,
         required: true
     }
+}, {
+    toJSON: {virtuals:true}, toObject: {virtuals:true}
+})
+
+CategorySchema.virtual("ListJob", {
+    ref: "Jobs",
+    localField: "_id",
+    foreignField: "category",
+    justOne: false
 })
 
 const Categories = models.Categories || model("Categories", CategorySchema);
