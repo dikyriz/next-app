@@ -4,6 +4,7 @@ import ApplyJob from "@/models/applyJob";
 import Link from "next/link";
 import {CiLinkedin} from "react-icons/ci";
 import {MdSchool} from "react-icons/md";
+import DialogButton from "@/components/DialogButton";
 
 const ListApplicantPage = async ({params}) => {
     await connectDB();
@@ -14,7 +15,13 @@ const ListApplicantPage = async ({params}) => {
     }).populate("ListPelamar").lean();
 
     const data = JSON.parse(JSON.stringify(applyJobData));
-    console.info(data);
+
+    if(data.length <= 0){
+        return (
+            <h1 className="text-3xl font-bold underline text-info">applicant not yet available</h1>
+        )
+    }
+
     return (
         <>
             <h1 className="text-center my-5 font-bold text-3xl text-info underline">List Applicant</h1>
@@ -24,13 +31,16 @@ const ListApplicantPage = async ({params}) => {
                         <div className="card-body">
                             <h2 className="card-title text-3xl font-bold text-info">{item.ListPelamar.firstName} {item.ListPelamar.lastName}</h2>
                             <p className="whitespace-pre-line my-3">{item.ListPelamar.biodata.substring(0, 200)} ...</p>
-                            <div className="flex">
-                                <Link href={item.ListPelamar.linkend} target="_blank">
-                                    <CiLinkedin className="w-9 h-9 text-blue-400"/>
-                                </Link>
-                                <Link href={item.ListPelamar.portofolio} target="_blank">
-                                    <MdSchool className="w-9 h-9 text-blue-400"/>
-                                </Link>
+                            <div className="flex justify-between">
+                                <div className="flex">
+                                    <Link href={item.ListPelamar.linkend} target="_blank">
+                                        <CiLinkedin className="w-9 h-9 text-blue-400"/>
+                                    </Link>
+                                    <Link href={item.ListPelamar.portofolio} target="_blank">
+                                        <MdSchool className="w-9 h-9 text-blue-400"/>
+                                    </Link>
+                                </div>
+                                <DialogButton data={item.ListPelamar}/>
                             </div>
                         </div>
                     </div>

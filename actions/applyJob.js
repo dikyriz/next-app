@@ -3,6 +3,8 @@ import connectDB from "@/config/database";
 import {auth} from "@clerk/nextjs/server";
 import Profile from "@/models/profile";
 import ApplyJob from "@/models/applyJob";
+import {redirect} from "next/navigation";
+import {ApplyJobFormSchema} from "@/utils/ApplyJobSchema";
 
 
 export async function applyJobCreate(jobId){
@@ -31,4 +33,39 @@ export async function applyJobCreate(jobId){
             error: "Profile belum dibuat, silahkan buat dulu"
         }
     }
+}
+
+export async function applyJobUpdate(state, formData) {
+    await connectDB();
+
+    // Validate form fields
+    const validatedFields = ApplyJobFormSchema.safeParse({
+        message: formData.get('message'),
+        status: formData.get('status'),
+    })
+
+    // If any form fields are invalid, return early
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+        }
+    }
+
+    // // Call the provider or db to create a user...
+    // const {status, message} = validatedFields.data
+    //
+    //
+    // const applyJobEdit = await ApplyJob.findByIdAndUpdate(state, {
+    //     message, status
+    // })
+    //
+    // if(!profileEdit){
+    //     return {
+    //         errors: "Delete failed"
+    //     }
+    // }
+    //
+    //
+    //
+    // redirect("/dashboard/profile");
 }
