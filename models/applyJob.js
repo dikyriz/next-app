@@ -19,6 +19,15 @@ const ApplyJobSchema = new Schema({
         type: String,
         default: null,
     }
+}, {
+    toJSON: {virtuals: true}, toObject: {virtuals: true}
+})
+
+ApplyJobSchema.virtual("ListPelamar", {
+    ref: "Profile",
+    localField: "profile",
+    foreignField: "_id",
+    justOne: true
 })
 
 const ApplyJob = models.ApplyJob || model("ApplyJob", ApplyJobSchema);

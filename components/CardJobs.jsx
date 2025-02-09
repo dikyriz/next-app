@@ -1,5 +1,5 @@
 "use client"
-import { CiMoneyBill, CiLocationOn, CiTimer } from "react-icons/ci";
+import { CiMoneyBill, CiLocationOn, CiTimer, CiUser } from "react-icons/ci";
 import Link from "next/link";
 import {priceFormat} from "@/utils";
 import {useUser} from "@clerk/nextjs"
@@ -40,8 +40,10 @@ const CardJobs = ({job, url}) => {
                     </li>
                 </ul>
                 {user && user.id == clerkId ? (
-                    <div className="flex justify-end gap-2 mb-2"><Link className="btn btn-info text-white btn-sm" href={`/dashboard/jobs/${_id}/edit`}>Edit</Link>
+                    <div className="flex justify-end gap-2 mb-2">
+                    <Link className="btn btn-info text-white btn-sm" href={`/dashboard/jobs/${_id}/edit`}>Edit</Link>
                     <button className="btn btn-sm btn-error  text-white" onClick={handleDelete}>Delete</button>
+                    <Link className="btn btn-accent text-white btn-sm" href={`/dashboard/jobs/${_id}/applicant`}><CiUser/> Applicant</Link>
                     </div>
                 ) : null}
             </div>
