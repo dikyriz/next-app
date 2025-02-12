@@ -2,7 +2,7 @@
 import {useState} from "react";
 import ModalDialog from "@/components/ModalDialog";
 
-const DialogButton = ({data}) => {
+const DialogButton = ({data, dataId}) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -19,7 +19,7 @@ const DialogButton = ({data}) => {
     return (
         <>
             <button className="btn btn-info " onClick={() => handleOpenModal(data)}>Action</button>
-            <ModalDialog isOpen={isOpen} data={data} onClose={handleCloseModal}/>
+            <ModalDialog isOpen={isOpen} data={data} onClose={handleCloseModal} dataId={dataId}/>
         </>
     );
 };

@@ -16,8 +16,8 @@ const DashboardList = [
         url: "/dashboard/profile"
     },
     {
-        label: "Stats",
-        url: "/dashboard/stats"
+        label: "Message",
+        url: "/dashboard/message"
     }
 ]
 

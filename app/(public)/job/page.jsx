@@ -3,9 +3,11 @@ import connectDB from "@/config/database";
 import Jobs from "@/models/job";
 import CardJobs from "@/components/CardJobs";
 
-const JobPage = async () => {
+const JobPage = async ({searchParams}) => {
     await connectDB();
-    const data = await Jobs.find({isPublish: true});
+    const search = searchParams.search || "";
+    const data = await Jobs.find({isPublish: true, title: {$regex: search, $options: "i"}});
+
     return (
         <>
            <h1 className="text-3xl font-bold underline text-center">List Jobs</h1>

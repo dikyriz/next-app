@@ -40,7 +40,7 @@ const ListApplicantPage = async ({params}) => {
                                         <MdSchool className="w-9 h-9 text-blue-400"/>
                                     </Link>
                                 </div>
-                                <DialogButton data={item.ListPelamar}/>
+                                <DialogButton data={item.ListPelamar} dataId={item._id}/>
                             </div>
                         </div>
                     </div>

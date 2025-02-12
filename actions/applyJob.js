@@ -5,6 +5,7 @@ import Profile from "@/models/profile";
 import ApplyJob from "@/models/applyJob";
 import {redirect} from "next/navigation";
 import {ApplyJobFormSchema} from "@/utils/ApplyJobSchema";
+import {revalidatePath} from "next/cache";
 
 
 export async function applyJobCreate(jobId){
@@ -51,21 +52,16 @@ export async function applyJobUpdate(state, formData) {
         }
     }
 
-    // // Call the provider or db to create a user...
-    // const {status, message} = validatedFields.data
-    //
-    //
-    // const applyJobEdit = await ApplyJob.findByIdAndUpdate(state, {
-    //     message, status
-    // })
-    //
-    // if(!profileEdit){
-    //     return {
-    //         errors: "Delete failed"
-    //     }
-    // }
-    //
-    //
-    //
-    // redirect("/dashboard/profile");
+    // Call the provider or db to create a user...
+    const {status, message} = validatedFields.data
+
+    const applyJobId = await ApplyJob.findById(state);
+
+    await ApplyJob.findByIdAndUpdate(state, {
+        message, status
+    })
+
+    revalidatePath(`/dashboard/jobs/${applyJobId.jobs}/applicant`)
+
+    return null;
 }

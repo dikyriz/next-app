@@ -6,8 +6,8 @@ import BtnSubmit from "@/components/form/BtnSubmit";
 import {useFormState} from "react-dom";
 import {applyJobUpdate} from "@/actions/applyJob";
 
-const ModalDialog = ({isOpen, onClose, data}) => {
-    const [state, action] = useFormState(applyJobUpdate, data._id);
+const ModalDialog = ({isOpen, onClose, data, dataId}) => {
+    const [state, action] = useFormState(applyJobUpdate, dataId);
     const listStatus = ["pending", "interview", "cancel"];
     if(!isOpen){
         return null;
@@ -25,9 +25,9 @@ const ModalDialog = ({isOpen, onClose, data}) => {
                 <div className="mt-2">
                     <form action={action}>
                         <SelectOption label="Select Status" name="status" list={listStatus}/>
-                        {state?.errors.status && ( <p className="text-error mt-2">{state.errors.status}</p>)}
+                        {state?.errors?.status && ( <p className="text-error mt-2">{state.errors.status}</p>)}
                         <TextAreaField label="Message" name="message" placeholder="Input Message"/>
-                        {state?.errors.message && ( <p className="text-error mt-2">{state.errors.message}</p>)}
+                        {state?.errors?.message && ( <p className="text-error mt-2">{state.errors.message}</p>)}
                         <BtnSubmit label="Update"/>
                     </form>
                 </div>
