@@ -4,6 +4,8 @@ import {auth} from "@clerk/nextjs/server";
 import Profile from "@/models/profile";
 import ApplyJob from "@/models/applyJob";
 import UserStatus from "@/components/dashboard/UserStatus";
+import Jobs from "@/models/job";
+import ChartBar from "@/components/dashboard/ChartBar";
 
 const DashboardPage = async () => {
     await connectDB();
@@ -33,7 +35,32 @@ const DashboardPage = async () => {
         cancel: cancelCount,
     }
 
-    console.info(objStatus);
+    const chartApply = await Jobs.aggregate([
+        {$match: {clerkId: userId}},
+        {$lookup: {
+            from: "applyjobs",
+            localField: "_id",
+            foreignField: "jobs",
+            as: "applyDetails"
+            }},
+        {
+            $unwind: "$applyDetails"
+        },
+        {
+            $group: {
+                _id: {jobTitle: "$title", status: "$applyDetails.status"},
+                totalJob: {$sum: 1}
+            }
+        },
+        {
+            $sort: {
+                "_id.jobTitle": 1,
+                totalJob: -1,
+            }
+        }
+    ]);
+
+    const chartApplyRaw = JSON.parse(JSON.stringify(chartApply));
 
     return (
         <>
@@ -42,6 +69,9 @@ const DashboardPage = async () => {
                 <UserStatus title="Pending" bgColor="bg-warning" count={objStatus.pending}/>
                 <UserStatus title="Interview" bgColor="bg-info" count={objStatus.interview}/>
                 <UserStatus title="Cancel" bgColor="bg-error" count={objStatus.cancel}/>
+            </div>
+            <div className="my-2">
+                <ChartBar jobApply={chartApplyRaw}/>
             </div>
         </>
     );
